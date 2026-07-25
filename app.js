@@ -1,53 +1,53 @@
-// ==============================
-// Supabase Connection
-// ==============================
-
-alert("1. app.js loaded");
 
 const SUPABASE_URL = "https://sjyjiphjllvnswzgsvnw.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_ANON_KEY_HERE";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
+// create client
 const supabase = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
 
-// ==============================
+// ===============================
 // Send Letter
-// ==============================
-
+// ===============================
 async function sendLetter() {
-  alert("2. sendLetter() started");
-
-  const title = document.getElementById("title").value.trim();
-  const message = document.getElementById("message").value.trim();
+  const titleInput = document.getElementById("title");
+  const messageInput = document.getElementById("message");
   const status = document.getElementById("status");
 
+  const title = titleInput.value.trim();
+  const message = messageInput.value.trim();
+
+  // check empty
   if (!title || !message) {
-    alert("3. Title or message is empty");
     status.textContent = "Please enter a title and message.";
     return;
   }
 
-  alert("4. Sending to Supabase...");
+  status.textContent = "Sending...";
 
-  const { error } = await supabase
-    .from("letters")
-    .insert([
-      {
-        title: title,
-        message: message
-      }
-    ]);
+  try {
+    const { error } = await supabase
+      .from("letters")
+      .insert([{ title, message }]);
 
-  if (error) {
-    alert("5. ERROR: " + error.message);
-    status.textContent = "Error: " + error.message;
-  } else {
-    alert("6. SUCCESS!");
-    status.textContent = "✅ Letter sent successfully!";
+    if (error) throw error;
 
-    document.getElementById("title").value = "";
-    document.getElementById("message").value = "";
+    status.textContent = "✅ Letter sent!";
+    titleInput.value = "";
+    messageInput.value = "";
+
+  } catch (err) {
+    console.error(err);
+    status.textContent = "❌ Error: " + err.message;
   }
 }
+
+// ===============================
+// Button Click
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("sendBtn");
+  button.addEventListener("click", sendLetter);
+});
