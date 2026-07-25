@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espanya Freedom Wall</title>
-
-  <link rel="stylesheet" href="style.css">
+  <title>Anonymous Letters</title>
 </head>
 <body>
 
-<div class="container">
-  <h1>💌 Freedom Wall 💌</h1>
-  <p>Share your thoughts anonymously.</p>
+<h1>💌 Anonymous Letters</h1>
 
-  <input
-    type="text"
-    id="title"
-    placeholder="Letter title">
+<textarea id="messageInput" placeholder="Write your anonymous message..." rows="4" cols="30"></textarea>
+<br><br>
 
-  <textarea
-    id="message"
-    placeholder="Write your anonymous letter..."></textarea>
+<button onclick="sendMessage()">Send</button>
 
-<button onclick="sendLetter(); alert('CLICK WORKED')">Send Letter</button>
-</div>
+<h2>📥 Messages:</h2>
+<ul id="messageList"></ul>
 
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-alert("HTML is working");
-</script>
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<!-- JS -->
+<script src="script.js"></script>
+
 </body>
-<script src="app.js?v=2"></script>
 </html>

@@ -1,42 +1,52 @@
-console.log("JS LOADED");
 
-alert("app.js loaded");
+const supabaseUrl = "https://sjyjiphjllvnswzgsnwk.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E'
-const SUPABASE_URL = 'https://sjyjiphjllvnswzgsnwk.supabase.co'
-const supabase = createClient(SUPABASE_URL, process.env.SUPABASE_KEY);
+// 📤 SEND MESSAGE
+async function sendMessage() {
+  const message = document.getElementById("messageInput").value;
 
-// ✅ create client
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-
-window.sendLetter = async function () {
-  alert("Button clicked"); // ✅ debug
-
-  const title = document.getElementById("title").value.trim();
-  const message = document.getElementById("message").value.trim();
-  const status = document.getElementById("status");
-
-  if (!title || !message) {
-    status.textContent = "Please enter a title and message.";
+  if (!message) {
+    alert("Write something first!");
     return;
   }
 
-  status.textContent = "Sending...";
+  const { error } = await supabaseClient
+    .from("letters") // table name
+    .insert([{ content: message }]);
 
-  try {
-    const { error } = await client
-  .from("letters")
-  .insert([{ title, message }]);
-    if (error) throw error;
-
-    status.textContent = "✅ Sent successfully!";
-  } catch (err) {
-    console.error(err);
-    status.textContent = "❌ Error: " + err.message;
+  if (error) {
+    console.error(error);
+    alert("Error sending message!");
+  } else {
+    document.getElementById("messageInput").value = "";
+    loadMessages();
   }
-};
+}
+
+// 📥 LOAD MESSAGES
+async function loadMessages() {
+  const { data, error } = await supabaseClient
+    .from("letters")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const list = document.getElementById("messageList");
+  list.innerHTML = "";
+
+  data.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.content;
+    list.appendChild(li);
+  });
+}
+
+// 🔄 LOAD ON START
+loadMessages();
