@@ -1,0 +1,37 @@
+const SUPABASE_URL="https://sjyjiphjllvnswzgsvnw.supabase.co";
+
+const SUPABASE_ANON_KEY="YOUR_ANON_KEY";
+
+const supabase=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+async function loadLetters(){
+
+const {data,error}=await supabase
+.from("letters")
+.select("*")
+.order("id",{ascending:false});
+
+const div=document.getElementById("letters");
+
+if(error){
+div.innerHTML=error.message;
+return;
+}
+
+data.forEach(letter=>{
+
+div.innerHTML+=`
+<div style="margin-bottom:20px;border-bottom:1px solid #ddd;padding-bottom:10px;">
+<h3>${letter.title}</h3>
+<p>${letter.message}</p>
+</div>
+`;
+
+});
+
+}
+
+loadLetters();
