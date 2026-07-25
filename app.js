@@ -7,7 +7,7 @@ alert("app.js loaded");
 // ===============================
 
 // 🔴 REPLACE THESE WITH YOUR REAL VALUES
-const SUPABASE_URL = "https://sjyjiphjllvnswzgsvnwv.supabase.co";
+const SUPABASE_URL = "https://sjyjiphjllvnswzgsnwk.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
 // ✅ create client
