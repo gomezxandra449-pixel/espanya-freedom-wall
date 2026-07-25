@@ -1,14 +1,11 @@
 console.log("JS LOADED");
-// ✅ TEST: check if JS loads
+
 alert("app.js loaded");
 
-// ===============================
-// Supabase Setup
-// ===============================
 
-// 🔴 REPLACE THESE WITH YOUR REAL VALUES
-const SUPABASE_URL = "https://sjyjiphjllvnswzgsnwk.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E'
+const SUPABASE_URL = 'https://sjyjiphjllvnswzgsnwk.supabase.co'
+const supabase = createClient(SUPABASE_URL, process.env.SUPABASE_KEY);
 
 // ✅ create client
 const supabase = window.supabase.createClient(
@@ -16,9 +13,7 @@ const supabase = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
-// ===============================
-// Send Letter (GLOBAL FUNCTION)
-// ===============================
+
 window.sendLetter = async function () {
   alert("Button clicked"); // ✅ debug
 

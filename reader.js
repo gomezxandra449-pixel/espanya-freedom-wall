@@ -2,8 +2,10 @@ const SUPABASE_URL="https://sjyjiphjllvnswzgsvnw.supabase.co";
 
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
-const { createClient } = supabase;
-const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://sjyjiphjllvnswzgsnwk.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 async function loadLetters(){
 
