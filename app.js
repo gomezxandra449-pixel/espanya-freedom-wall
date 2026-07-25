@@ -1,22 +1,37 @@
+// ==============================
+// Supabase Connection
+// ==============================
+
 alert("1. app.js loaded");
 
 const SUPABASE_URL = "https://sjyjiphjllvnswzgsvnw.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
+const SUPABASE_ANON_KEY = "YOUR_ANON_KEY_HERE";
 
 const supabase = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
 
+// ==============================
+// Send Letter
+// ==============================
+
 async function sendLetter() {
-  alert("2. sendLetter started");
+  alert("2. sendLetter() started");
 
   const title = document.getElementById("title").value.trim();
   const message = document.getElementById("message").value.trim();
+  const status = document.getElementById("status");
 
-  alert("3. Title = " + title);
+  if (!title || !message) {
+    alert("3. Title or message is empty");
+    status.textContent = "Please enter a title and message.";
+    return;
+  }
 
-  const { data, error } = await supabase
+  alert("4. Sending to Supabase...");
+
+  const { error } = await supabase
     .from("letters")
     .insert([
       {
@@ -26,8 +41,13 @@ async function sendLetter() {
     ]);
 
   if (error) {
-    alert("ERROR: " + error.message);
+    alert("5. ERROR: " + error.message);
+    status.textContent = "Error: " + error.message;
   } else {
-    alert("SUCCESS!");
+    alert("6. SUCCESS!");
+    status.textContent = "✅ Letter sent successfully!";
+
+    document.getElementById("title").value = "";
+    document.getElementById("message").value = "";
   }
 }
