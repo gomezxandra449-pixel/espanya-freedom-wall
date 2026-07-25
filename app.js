@@ -1,4 +1,4 @@
-
+console.log("JS LOADED");
 // ✅ TEST: check if JS loads
 alert("app.js loaded");
 
@@ -34,10 +34,9 @@ window.sendLetter = async function () {
   status.textContent = "Sending...";
 
   try {
-    const { error } = await supabase
-      .from("letters")
-      .insert([{ title, message }]);
-
+    const { error } = await client
+  .from("letters")
+  .insert([{ title, message }]);
     if (error) throw error;
 
     status.textContent = "✅ Sent successfully!";
