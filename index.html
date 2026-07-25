@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espanya Freedom Wall</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>💌 Espanya Freedom Wall</h1>
+  <p>Share your thoughts anonymously.</p>
+
+  <input
+    type="text"
+    id="title"
+    placeholder="Letter title">
+
+  <textarea
+    id="message"
+    placeholder="Write your anonymous letter..."></textarea>
+
+  <button onclick="sendLetter()">
+    Send Letter
+  </button>
+
+  <p id="status"></p>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
