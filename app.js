@@ -1,52 +1,28 @@
-
+// 🔑 PUT YOUR SUPABASE KEYS
 const supabaseUrl = "https://sjyjiphjllvnswzgsnwk.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-// 📤 SEND MESSAGE
-async function sendMessage() {
-  const message = document.getElementById("messageInput").value;
+// 🚀 POST MESSAGE
+async function postMessage() {
+  const input = document.getElementById("messageInput");
+  const message = input.value.trim();
 
   if (!message) {
-    alert("Write something first!");
+    alert("Write something!");
     return;
   }
 
   const { error } = await supabaseClient
-    .from("letters") // table name
+    .from("freedom_wall")
     .insert([{ content: message }]);
 
   if (error) {
     console.error(error);
-    alert("Error sending message!");
+    alert("Failed to post!");
   } else {
-    document.getElementById("messageInput").value = "";
-    loadMessages();
+    alert("Posted!");
+    input.value = "";
   }
 }
-
-// 📥 LOAD MESSAGES
-async function loadMessages() {
-  const { data, error } = await supabaseClient
-    .from("letters")
-    .select("*")
-    .order("id", { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const list = document.getElementById("messageList");
-  list.innerHTML = "";
-
-  data.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item.content;
-    list.appendChild(li);
-  });
-}
-
-// 🔄 LOAD ON START
-loadMessages();

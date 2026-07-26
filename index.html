@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Anonymous Letters</title>
+  <meta charset="UTF-8">
+  <title>Freedom Wall - Post</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>💌 Anonymous Letters</h1>
+<header>💌 Freedom Wall</header>
 
-<textarea id="messageInput" placeholder="Write your anonymous message..." rows="4" cols="30"></textarea>
-<br><br>
+<div class="container">
+  <h2>Post Anonymously</h2>
 
-<button onclick="sendMessage()">Send</button>
+  <textarea id="messageInput" placeholder="Write your message..."></textarea>
+  <br>
 
-<h2>📥 Messages:</h2>
-<ul id="messageList"></ul>
+  <button onclick="postMessage()">Post</button>
 
-<!-- Supabase -->
+  <br><br>
+  <a href="read.html">
+    <button>📖 Go to Reader</button>
+  </a>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-<!-- JS -->
-<script src="script.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>

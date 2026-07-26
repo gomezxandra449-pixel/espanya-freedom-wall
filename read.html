@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Letters</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
+  <meta charset="UTF-8">
+  <title>Freedom Wall - Reader</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
+<header>📖 Freedom Wall Reader</header>
+
 <div class="container">
+  <a href="index.html">
+    <button>⬅ Back to Post</button>
+  </a>
 
-<h1>Anonymous Letters</h1>
-
-<div id="letters"></div>
-
+  <div class="posts" id="postsContainer">
+    <p>No messages yet...</p>
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="reader.js"></script>
 
 </body>
-
 </html>

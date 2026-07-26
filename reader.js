@@ -1,37 +1,37 @@
-const SUPABASE_URL="https://sjyjiphjllvnswzgsvnw.supabase.co";
+// 🔑 SAME KEYS HERE
+const supabaseUrl = "https://sjyjiphjllvnswzgsnwk.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
 
-const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-import { createClient } from '@supabase/supabase-js'
-const supabaseUrl = 'https://sjyjiphjllvnswzgsnwk.supabase.co'
-const supabaseKey = process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+// 📖 LOAD MESSAGES
+async function loadMessages() {
+  const { data, error } = await supabaseClient
+    .from("freedom_wall")
+    .select("*")
+    .order("id", { ascending: false });
 
-async function loadLetters(){
+  const container = document.getElementById("postsContainer");
+  container.innerHTML = "";
 
-const {data,error}=await supabase
-.from("letters")
-.select("*")
-.order("id",{ascending:false});
+  if (error) {
+    console.error(error);
+    container.innerHTML = "<p>Error loading messages</p>";
+    return;
+  }
 
-const div=document.getElementById("letters");
+  if (data.length === 0) {
+    container.innerHTML = "<p>No messages yet...</p>";
+    return;
+  }
 
-if(error){
-div.innerHTML=error.message;
-return;
+  data.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.textContent = item.content;
+    container.appendChild(card);
+  });
 }
 
-data.forEach(letter=>{
-
-div.innerHTML+=`
-<div style="margin-bottom:20px;border-bottom:1px solid #ddd;padding-bottom:10px;">
-<h3>${letter.title}</h3>
-<p>${letter.message}</p>
-</div>
-`;
-
-});
-
-}
-
-loadLetters();
+// 🔄 RUN
+loadMessages();
