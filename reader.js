@@ -7,7 +7,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 // 📖 LOAD MESSAGES
 async function loadMessages() {
   const { data, error } = await supabaseClient
-    .from("table")
+    .from("letters")
     .select("*")
     .order("id", { ascending: false });
 
