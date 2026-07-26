@@ -1,6 +1,6 @@
 // 🔑 PUT YOUR SUPABASE KEYS
-const supabaseUrl = "https://sjyjiphjllvnswzgsnwk.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqeWppcGhqbGx2bnN3emdzbndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTExMzYsImV4cCI6MjEwMDU2NzEzNn0.0oFmsAsVHB96RgOs33sCTYDPkCCH0Jxdl-vDN8HOc1E";
+const supabaseUrl = "https://YOUR_PROJECT_ID.supabase.co";
+const supabaseKey = "YOUR_ANON_PUBLIC_KEY";
 
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -15,12 +15,15 @@ async function postMessage() {
   }
 
   const { error } = await supabaseClient
-    .from("freedom_wall")
-    .insert([{ content: message }]);
+    .from("table")
+.insert([{
+  title: "Anonymous",
+  message: message
+}])
 
   if (error) {
     console.error(error);
-    alert("Failed to post!");
+    alert("Error: " + error.message);c
   } else {
     alert("Posted!");
     input.value = "";

@@ -7,7 +7,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 // 📖 LOAD MESSAGES
 async function loadMessages() {
   const { data, error } = await supabaseClient
-    .from("freedom_wall")
+    .from("table")
     .select("*")
     .order("id", { ascending: false });
 
@@ -28,7 +28,7 @@ async function loadMessages() {
   data.forEach(item => {
     const card = document.createElement("div");
     card.className = "card";
-    card.textContent = item.content;
+    card.textContent = item.message;
     container.appendChild(card);
   });
 }
